@@ -7,7 +7,7 @@
 
     <!-- this is the main content -->
     <div class="container">
-      <h1><%= title %></h1>
+      <h1><%= title %> <%= pagetitle %></h1>
       /views/default.ejs
 
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -17,11 +17,13 @@
       cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
+    <% if(typeof(users) !== "undefined") { %>  
       <ul>
-        <% for(var i = 0; i<users.length; i+=1) {%>
-        <li><%= users[i] %></li>
-        <% } %>
-      </ul>       
+        <% for(var i = 0; i < users.length; i += 1) { %>
+        <li><%= users[i]%></li>
+      <% }%>
+      </ul>  
+    <% } %>
     </div> <!-- container -->
 
     <% include partials/page/footer.ejs %>
