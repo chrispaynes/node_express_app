@@ -19,8 +19,8 @@
 
     <% if(typeof(users) !== "undefined") { %>  
       <ul>
-        <% for(var i = 0; i < users.length; i += 1) { %>
-        <li><%= users[i]%></li>
+        <% for(let u in users) { %>
+        <li><%= users[u]%></li>
       <% }%>
       </ul>  
     <% } %>
