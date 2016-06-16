@@ -1,6 +1,8 @@
-var express = require("express");
-var app = express();
-var routes = require("./routes");
+const express = require("express"),
+      app = express(),
+      routes = require("./routes")
+      livereload = require("express-livereload");
+
 
 // app.set modifies expressJS application settings
 // sets a variable for an expressJS app
@@ -29,6 +31,10 @@ app.get("*", function(req, res) {
 });
 
 
-var server = app.listen(4000, function(){
-    console.log("Listening on http://localhost:4000");    
+const server = app.listen(4000, function(){
+    console.log("Listening on http://localhost:4000"); 
+});
+
+livereload(app, config={
+  watchDir: __dirname + "/"
 });
