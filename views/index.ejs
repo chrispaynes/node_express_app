@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><% include head.ejs %></head>  
+  <body class= "<% title %> div-med container-fluid pad-lg " >
+
+    <% include header.ejs %>
+
+    <!-- this is the main content -->
+    <div class="vt-marg-lg pad-sm">
+      <p class="txt-xs">global content from views/index.ejs</p>
+      <!-- <h1><%= title %> Page</h1> -->
+
+  <div>
+    <h1 class="txt-lg txt-bold">
+    Express
+    </h1>
+    the fast, unopinionated, minimalist web framework for node
+    <div class="vt-marg-top-lg">
+      <p><span class="glyphicon glyphicon-chevron-right"></span>Minimalist</p>
+      <p><span class="glyphicon glyphicon-chevron-right"></span>Flexible</p>
+      <p><span class="glyphicon glyphicon-chevron-right"></span>Robust web and mobile features</p>
+    </div>
+  </div>
+
+    <% if(typeof(users) !== "undefined") { %>  
+      <ul>
+        <% for(let u in users) { %>
+        <li><%= users[u]%></li>
+      <% }%>
+      </ul>  
+    <% } %>
+    </div> <!-- container -->
+
+    <% include footer.ejs %>
+    <% include jsdefaults.ejs %>
+
+  </body>
+</html>

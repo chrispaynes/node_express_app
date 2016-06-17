@@ -1,0 +1,16 @@
+<header class="pad-sm fluid-container">
+
+<div class="page-header">
+
+<nav class="pull-right">
+  <ul class="pagination vt-marg-xs">
+    <% for(let i in app_routes) { %>
+      <li><%- link_to(app_routes[i], app_routes[i]) %></li>
+    <% } %>
+  </ul>
+</nav>
+
+  <h1><%= pagetitle %>/<%= title %></h1>
+  <p class="txt-xs">header content from views/header.ejs</p>
+</div>
+</header>
