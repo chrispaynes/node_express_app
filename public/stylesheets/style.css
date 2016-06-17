@@ -1,0 +1,324 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100);
+* {
+  box-sizing: border-box;
+  text-decoration: none !important;
+  text-style: none;
+  border-radius: 0; 
+  /*border: solid 1px lightgray;*/
+  list-style: none; 
+}
+
+a, a:hover{
+  color: inherit;
+}
+
+::-webkit-input-placeholder {
+   color: white;
+   opacity: 0.5;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: white;  
+}
+
+:-ms-input-placeholder {  
+   color: white;  
+}
+
+body {
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 150%;
+  cursor: pointer;
+}
+
+/* DIV CONTAINERS */
+
+.div-tall {
+  height: 750px;
+}
+
+.div-med {
+  min-height: 500px;
+}
+
+.div-sm {
+  min-height: 250px;
+}
+
+.div-xs {
+  min-height: 125px;
+}
+
+.div-xxs {
+  min-height: 62px;
+}
+
+button {
+  border: none;
+}
+
+/* BACKGROUNDS */
+.bg-dark {
+  background: #19283f;
+}
+
+.bg-dark-50 {
+  background: rgba(25,40,63, 0.8)
+
+}
+
+.bg-neutral {
+  background: #eee;
+}
+
+.bg-ltblue {
+  background: #6ea8cc;
+}
+
+.bg-orange {
+  background-color: rgb(200, 75, 0);
+}
+
+.bg-orange:hover {
+  background-color: rgb(250, 125, 0);
+}
+
+.bg-orange-lt {
+  background-color: rgba(250, 125, 0, 0.75);
+}
+
+.bg-light {
+  background: #fff;
+}
+
+.strk-r-orange{
+    border-right: solid 1px rgb(200, 75, 0);
+}
+
+.str-btm-white {
+  border-bottom: solid 2px rgb(255, 255, 255);
+}
+
+.str-orange {
+  border: solid 2px rgb(200, 75, 0);
+  background-color: inherit;
+}
+.str-orange-100 {
+  border-left: solid 1px rgb(200, 75, 0);
+  background-color: inherit;
+}
+
+.str-orange:hover {
+  border: solid 2px rgb(250, 125, 0);
+  background-color: rgb(200, 75, 0);
+}
+
+.text-light {
+  color: white;
+}
+
+.text-orange {
+  color: rgb(200, 75, 0);
+}
+
+.text-hvr-orange:hover {
+  color: rgb(200, 75, 0);
+}
+
+.text-hvr-orange-lt:hover {
+  color: rgb(250, 175, 0);
+}
+
+/* BORDERS */
+
+.bdr-btm-orange {
+  border-bottom: solid 3px rgb(200, 75, 0);
+}
+
+.bdr-btm-orange:hover {
+  border-width: 6px;
+}
+
+.bdr-btm-ltblue {
+  border-bottom: solid 3px #6ea8cc;
+}
+
+.bdr-btm-ltblue:hover {
+  border-width: 6px;
+}
+
+.bdr-btm-ltgreen {
+  border-bottom: solid 3px #96b346;
+}
+
+.bdr-btm-ltgreen:hover {
+  border-width: 6px;
+}
+
+.bdr-btm-ltyellow {
+  border-bottom: solid 3px #dfbc35;
+}
+
+.bdr-btm-ltyellow:hover {
+  border-width: 6px;
+}
+
+.bdr-rad-sm {
+  border-radius: 2px;  
+}
+
+.shad-hvr-md:hover {
+  box-shadow: 3px 5px 5px rgba(0, 0, 0, 0.2);  
+}
+
+/* TYPOGRAPHY & FONTS*/
+
+.txt-thin {
+  font-weight: 100;
+}
+
+.txt-normal {
+  font-weight: normal;
+}
+
+.txt-bold {
+  font-weight: 400;
+}
+
+.txt-xs {
+  font-size: 12px;
+}
+
+.txt-sm {
+  font-size: 16px;
+}
+
+.txt-md {
+  font-size: 32px;
+}
+
+.txt-lg {
+  font-size: 48px;
+}
+
+
+
+
+
+
+/* MARGINS */
+
+.vt-marg-xs {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.vt-marg-sm {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.vt-marg-top-sm {
+  margin-top: 10px;
+}
+
+.vt-marg-md {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.vt-marg-top-md {
+  margin-top: 15px;
+}
+
+.vt-marg-lg {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.vt-marg-top-lg {
+  margin-top: 25px;
+}
+
+.vt-marg-xl {
+  margin-top: 35px;
+  margin-bottom: 35px;
+}
+
+.hz-marg-xs {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.hz-marg-sm {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.hz-marg-md {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.hz-marg-lg {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+/* PADDING */
+
+.pad-sm {
+  padding: 5px;
+}
+
+.pad-md {
+  padding: 15px;
+}
+
+.pad-lg {
+  padding: 30px;
+}
+
+.main-nav-div {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+}
+
+.intro {
+  margin-top: 200px;
+}
+
+.btn-250x50 {
+  width: 250px;
+  height: 50px;
+}
+
+.btn-250x50 {
+  width: 150px;
+  height: 50px;
+  vtical-align: middle;
+  /* override font-awesome's baseline alignment*/
+}
+
+.div250x50 {
+  width: 300px;
+  height: 150px;
+}
+
+.line-md{
+  border: solid 1px lightgray;
+  width: 25%;
+}
+.line-md-dark{
+  border: solid 1px #19283f;
+  width: 25%;
+}
+.line-height-2x{
+  line-height: 200%;
+}
+.bdr{
+  border: solid 1px black;
+}
