@@ -1,3 +1,5 @@
 /node_modules/
 /.README_STEPS.MD
 .DS_Store
+npm-debug.log
+bower_components
