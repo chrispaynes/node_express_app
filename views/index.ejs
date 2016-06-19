@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head><% include head.ejs %></head>  
-  <body class= "<% title %> div-med container-fluid pad-lg " >
+  <body class= "<% title %> div-med container-fluid pad-lg ">
 
     <% include header.ejs %>
 
@@ -22,13 +22,32 @@
     </div>
   </div>
 
-    <% if(typeof(users) !== "undefined") { %>  
-      <ul>
-        <% for(let u in users) { %>
-        <li><%= users[u]%></li>
-      <% }%>
-      </ul>  
-    <% } %>
+    <!-- user data table -->
+    <div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Firstname</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if(typeof(users) !== "undefined") { %> 
+            <% for(let u in users) { %>
+              <tr>           
+                <td><%= users[u].id%></td>
+                <td><%= users[u].name%></td>
+              </tr> 
+            <% }%> 
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+
+    <form action="/add" method="post">
+      <input type="text" name="newItem"></input>
+      <input type="submit"></input>
+    </form>
     </div> <!-- container -->
 
     <% include footer.ejs %>
