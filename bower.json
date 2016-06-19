@@ -1,0 +1,28 @@
+{
+  "name": "node_express_app",
+  "description": "A simple Node and Express app created for educational purposes.",
+  "main": "app.js",
+  "authors": [
+    "chrispaynes <cdpaynes@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/chrispaynes/node_express_app",
+  "moduleType": [
+    "es6",
+    "globals"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~3.0.0",
+    "bootstrap": "~3.3.6"
+  },
+  "resolutions": {
+    "jquery": "~3.0.0"
+  }
+}
