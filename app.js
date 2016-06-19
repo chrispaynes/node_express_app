@@ -7,6 +7,8 @@ const express = require("express"),
       helpers = require("express-helpers")(app),
       morgan = require("morgan");
 
+app.disable("x-powered-by");
+
 // app.set(name, value) configures expressJS app settings
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -18,12 +20,11 @@ each server request will run through these functions
 mounting static image and css files from the "public" directory
 mounting logger() to displays log information to the console
 */
-// express.static(root, [options])
 app.use(express.static(__dirname + '/public'),
-        express.static(__dirname + '/bower_components/bootstrap/dist'),
-        express.static(__dirname + '/bower_components/jquery/dist'),        
+        express.static(__dirname + '/bower_components'),
         morgan("common", {date: "web"}),
-        bodyParser()
+        bodyParser.urlencoded({ extended: false }),
+        bodyParser.json()
 );
 
 /*
