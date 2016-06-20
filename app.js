@@ -1,6 +1,7 @@
 const express = require("express"),
       app = express(),
       routes = require("./routes"),
+      errors = require("./errors/errors"),
       path = require("path"),
       bodyParser = require("body-parser")
       livereload = require("express-livereload"),
@@ -54,8 +55,9 @@ app.get(["/", "/index", "/home"], routes.index);
 app.get("/about", routes.about);
 app.get("/contact", routes.contact);
 
-// sends text error to the browser when a user requests a nonexistant route
-app.get("*", (req, res) => res.status(404).send("Bad Route"));
+// sends HTTP Status response and text to browser for 404 and 500 errors
+app.use(errors.code404);
+app.use(errors.code500);
 
 // app.post(path, callback [, callback ...])
 // posts new name to list of user names
