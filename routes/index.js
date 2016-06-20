@@ -5,7 +5,7 @@ by default the app expects templates to be in the /views/ folder
 pass in data to a template within the "locals" parameter
 res.render(view [, locals] [, callback])
 */
-exports.index = function(req, res) {
+exports.index = (req, res) => {
     res.render("index", {
       title: "Index",
       classname: "home"
@@ -16,14 +16,14 @@ exports.index = function(req, res) {
     // res.render("views", __dirname + "/myCustomTemplateFolder");
 };
 
-exports.about = function(req, res) {
+exports.about = (req, res) => {
     res.render("about", {
       title: "About",
       classname: "about"
     });
 };
 
-exports.contact = function(req, res) {
+exports.contact = (req, res) => {
     res.render("contact", {
       title: "Contact",
       classname: "contact"
