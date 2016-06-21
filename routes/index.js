@@ -6,26 +6,31 @@ pass in data to a template within the "locals" parameter
 res.render(view [, locals] [, callback])
 */
 exports.index = (req, res) => {
-    res.render("index", {
-      title: "Index",
-      classname: "home"
-    });
+  res.render("index", {
+    title: "Index",
+    classname: "home"
+  });
 
-    // to specify a template folder other than the default /views/ folder...
-    // __dirname is a global variable indicating the app's entry point
-    // res.render("views", __dirname + "/myCustomTemplateFolder");
+  // to specify a template folder other than the default /views/ folder...
+  // __dirname is a global variable indicating the app's entry point
+  // res.render("views", __dirname + "/myCustomTemplateFolder");
 };
 
 exports.about = (req, res) => {
-    res.render("about", {
-      title: "About",
-      classname: "about"
-    });
+  res.render("about", {
+    title: "About",
+    classname: "about"
+  });
 };
 
 exports.contact = (req, res) => {
-    res.render("contact", {
-      title: "Contact",
-      classname: "contact"
-    });
+  res.render("contact", {
+    title: "Contact",
+    classname: "contact",
+    csrf: "CSRF token here"
+  });
+};
+
+exports.thankyou = (req, res) => {
+  res.render("thankyou");
 };
