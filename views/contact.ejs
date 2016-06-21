@@ -5,7 +5,45 @@
 
     <% include header.ejs %>
 
-<h1>from views/content</h1>  
+    <h1>from views/content</h1>
+
+    <div class="contactUs">
+
+  <form class="form-horizontal" role="form" method="POST" action="/process?form=contactus">
+
+    <h3 class="col-sm-offset-2">Contact Us</h3>
+    <h4 class="col-sm-offset-2">Send Us Your Questions</h4> 
+    <input type="hidden" name="_csrf" value=<%= csrf%>>
+
+    <div class="form-group">
+      <label for="email" class="col-sm-2 control-label">Email</label>
+      <div class="col-sm-4">
+        <input type="email" class="form-control" id="fieldEmail" name="email" placeholder="example@domain.com" value="">
+      </div>
+    </div> <!-- End of form-group-->
+    
+    <div class="form-group">
+      <label for="message" class="col-sm-2 control-label">Message</label>
+      <div class="col-sm-4">
+        <textarea class="form-control" rows="4" name="message"></textarea>
+      </div>
+    </div> <!-- End of form-group-->
+    
+    <div class="form-group">
+      <label for="fieldQues" class="col-sm-2 control-label">Question</label>
+      <div class="col-sm-4">
+        <textarea class="form-control" id="fieldQues" name="ques"></textarea>
+      </div>
+    </div> <!-- End of form-group-->
+    
+    <div class="form-group">
+      <div class="col-sm-4 col-sm-offset-2">
+        <button type="submit" class="btn btn-primary form-control">Submit</button>
+      </div>
+    </div> <!-- End of form-group-->
+
+  </form> 
+</div> <!-- End of contactUS --> 
 
     <% include footer.ejs %>
     <% include jsdefaults.ejs %>
