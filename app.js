@@ -3,7 +3,10 @@ const express = require("express"),
       routes = require("./routes"),
       errors = require("./errors/errors"),
       path = require("path"),
-      bodyParser = require("body-parser")
+      bodyParser = require("body-parser"),
+      cookieParser = require("cookie-parser"),
+      credentials = require("./credentials.js"),
+      formidable = require("formidable"),
       livereload = require("express-livereload"),
       helpers = require("express-helpers")(app),
       morgan = require("morgan");
@@ -24,8 +27,9 @@ mounting logger() to displays log information to the console
 app.use(express.static(__dirname + '/public'),
         express.static(__dirname + '/bower_components'),
         morgan("common", {date: "web"}),
-        bodyParser.urlencoded({ extended: false }),
-        bodyParser.json()
+        bodyParser.urlencoded({ extended: true }),
+        bodyParser.json(),
+        cookieParser(credentials.cookieSecret)
 );
 
 /*
@@ -54,10 +58,8 @@ app.locals = {
 app.get(["/", "/index", "/home"], routes.index);
 app.get("/about", routes.about);
 app.get("/contact", routes.contact);
+app.get("/thankyou", routes.thankyou);
 
-// sends HTTP Status response and text to browser for 404 and 500 errors
-app.use(errors.code404);
-app.use(errors.code500);
 
 // app.post(path, callback [, callback ...])
 // posts new name to list of user names
@@ -69,6 +71,23 @@ app.post("/add", (req, res) => {
     });
     res.redirect("/");
   });
+
+/*
+logs user submission from contact page
+redirects user to thankyou page
+*/
+app.post("/process", (req, res) => {
+  console.log("Form : " + req.query.form);
+  console.log("CSRF token : " + req.body._csrf);
+  console.log("Email : " + req.body.email);
+  console.log("Question : " + req.body.ques);
+  res.redirect(303, "/thankyou");    
+});
+
+// *** THESE MUST BE PLACED AT THE END OF THE PIPELINE ***
+// sends HTTP Status response and text to browser for 404 and 500 errors
+app.use(errors.code404);
+app.use(errors.code500);
 
 const server = app.listen(4000, (err, res) =>
   err => console.log("Server error"),
