@@ -38,7 +38,7 @@ app.locals makes data available across all app routes and templates
 */
 app.locals = {
   pagetitle: "node_express_app",
-  app_routes: ["home", "about", "contact"],
+  app_routes: ["home", "about", "contact", "file-upload"],
   link_to: helpers.link_to,
   users: [{id: 1, name: "Tom"},
           {id: 2, name: "Dick"},
@@ -59,8 +59,11 @@ app.get(["/", "/index", "/home"], routes.index);
 app.get("/about", routes.about);
 app.get("/contact", routes.contact);
 app.get("/thankyou", routes.thankyou);
+app.get("/file-upload", routes.fileUpload);
+app.get("/error", errors.error)
 
 
+app.post("/file-upload/:year/:month", routes.fileUploadYD);
 // app.post(path, callback [, callback ...])
 // posts new name to list of user names
 app.post("/add", (req, res) => {
