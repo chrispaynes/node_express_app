@@ -1,4 +1,5 @@
-const formidable = require("formidable")
+const formidable = require("formidable"),
+      fs         = require("fs");
 
 /*
 gets application root route (index.html)
@@ -78,4 +79,25 @@ exports.deletecookies = (req, res) => {
 // counts the number of times a user views the /viewcounts page
 exports.viewcount = (req, res, next) => {
   res.send("You viewed this page " + req.session.views["/viewcount"] + " times")
+};
+
+// reads the contents of a file
+exports.readfile = (req, res, next) => {
+  fs.readFile("./public/readtext.txt", (err, data) => {
+    err => console.error(err);
+    res.send("The File: " + data.toString());
+  });
+};
+
+// writes the contents of a file then reads it
+exports.writefile = (req, res, next) => {
+  fs.writeFile("./public/newWriteFile.txt",
+    "The newly written text is here", (err) => {
+      err => console.error(err)
+    });
+
+  fs.readFile("./public/newWriteFile.txt", (err, data) => {
+  err => console.error(err);
+  res.send("The File: " + data.toString());
+  });
 };
