@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><% include head.ejs %></head>  
+  <body class= "<% title %> div-med container-fluid pad-lg ">
+
+    <% include header.ejs %>
+
+    <div class="contactUs">
+
 <form class="form-horizontal" role="form"
   enctype="multipart/form-data" method="POST"
   action="/file-upload/{year}/{month}">
@@ -38,3 +47,11 @@
   </div>
   
 </form>
+
+</div> <!-- End of contactUS --> 
+
+    <% include footer.ejs %>
+    <% include jsdefaults.ejs %>
+
+  </body>
+</html>
