@@ -1,17 +1,18 @@
-const express = require("express"),
-      app = express(),
-      routes = require("./routes"),
-      errors = require("./errors/errors"),
-      path = require("path"),
-      bodyParser = require("body-parser"),
+const express      = require("express"),
+      app          = express(),
+      routes       = require("./routes"),
+      errors       = require("./errors/errors"),
+      path         = require("path"),
+      bodyParser   = require("body-parser"),
       cookieParser = require("cookie-parser"),
-      credentials = require("./credentials.js"),
-      formidable = require("formidable"),
-      livereload = require("express-livereload"),
-      helpers = require("express-helpers")(app),
-      morgan = require("morgan"),
-      session = require("express-session"),
-      parseurl = require("parseurl");
+      credentials  = require("./credentials.js"),
+      formidable   = require("formidable"),
+      livereload   = require("express-livereload"),
+      helpers      = require("express-helpers")(app),
+      morgan       = require("morgan"),
+      session      = require("express-session"),
+      parseurl     = require("parseurl"),
+      fs           = require("fs");
 
 app.disable("x-powered-by");
 
@@ -33,7 +34,7 @@ app.use(express.static(__dirname + '/public'),
         bodyParser.json(),
         cookieParser(credentials.cookieSecret),
         session({resave: false,
-                 saveUnitialized: true,
+                 saveUninitialized: true,
                  secret: credentials.cookieSecret}),
         function(req, res, next){
           var views = req.session.views;
@@ -54,7 +55,7 @@ app.locals makes data available across all app routes and templates
 */
 app.locals = {
   pagetitle: "node_express_app",
-  app_routes: ["home", "about", "contact", "file-upload"],
+  app_routes: ["home", "about", "contact", "file-upload", "readfile", "writefile"],
   link_to: helpers.link_to,
   users: [{id: 1, name: "Tom"},
           {id: 2, name: "Dick"},
@@ -80,7 +81,9 @@ app.get("/error", errors.error);
 app.get("/cookie", routes.cookie);
 app.get("/listcookies", routes.listcookies);
 app.get("/deletecookies", routes.deletecookies);
-app.get("/viewcount", routes.viewcount)
+app.get("/viewcount", routes.viewcount);
+app.get("/readfile", routes.readfile);
+app.get("/writefile", routes.writefile);
 
 app.post("/file-upload/:year/:month", routes.fileUploadYD);
 // app.post(path, callback [, callback ...])
