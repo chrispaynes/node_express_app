@@ -1,3 +1,11 @@
+exports.error = (err, req, res, next) => {
+  console.error(err.stack);
+  res.render("error", {
+    title: "Error Something Went Wrong"
+  });
+};
+
+
 exports.code404 = (req, res) => {
   res.type("text/html").status(404)
   res.render("404", {
