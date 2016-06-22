@@ -9,7 +9,9 @@ const express = require("express"),
       formidable = require("formidable"),
       livereload = require("express-livereload"),
       helpers = require("express-helpers")(app),
-      morgan = require("morgan");
+      morgan = require("morgan"),
+      session = require("express-session"),
+      parseurl = require("parseurl");
 
 app.disable("x-powered-by");
 
@@ -29,7 +31,21 @@ app.use(express.static(__dirname + '/public'),
         morgan("common", {date: "web"}),
         bodyParser.urlencoded({ extended: true }),
         bodyParser.json(),
-        cookieParser(credentials.cookieSecret)
+        cookieParser(credentials.cookieSecret),
+        session({resave: false,
+                 saveUnitialized: true,
+                 secret: credentials.cookieSecret}),
+        function(req, res, next){
+          var views = req.session.views;
+          if(!views){
+            views = req.session.views = {};
+          }
+
+          var pathname = parseurl(req).pathname;
+          views[pathname] = (views[pathname] || 0 ) + 1;
+
+          next();
+        }
 );
 
 /*
@@ -60,8 +76,11 @@ app.get("/about", routes.about);
 app.get("/contact", routes.contact);
 app.get("/thankyou", routes.thankyou);
 app.get("/file-upload", routes.fileUpload);
-app.get("/error", errors.error)
-
+app.get("/error", errors.error);
+app.get("/cookie", routes.cookie);
+app.get("/listcookies", routes.listcookies);
+app.get("/deletecookies", routes.deletecookies);
+app.get("/viewcount", routes.viewcount)
 
 app.post("/file-upload/:year/:month", routes.fileUploadYD);
 // app.post(path, callback [, callback ...])
