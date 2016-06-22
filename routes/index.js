@@ -46,7 +46,7 @@ exports.fileUpload = (req, res) => {
 
 // parses file upload and redirects upon error or success
 exports.fileUploadYD = (req, res) => {
-  formidable.IncomingForm().parse(req, (err, fields, file) => {
+  new formidable.IncomingForm().parse(req, (err, fields, file) => {
     if(err) {
       return res.redirect(303, "/error")         
     }else {
@@ -56,4 +56,26 @@ exports.fileUploadYD = (req, res) => {
     console.log(file);
     res.redirect(303, "/thankyou")
   })
+};
+
+// sets and displays the cookie names
+exports.cookie = (req, res) => {
+  res.cookie("username", "User Name", {expire: new Date() + 9999});
+  res.send("Username has a value of User Name;")
+};
+
+// outputs all cookies to the console
+exports.listcookies = (req, res) => {
+  console.log("Cookies:", req.cookies);
+  res.send("Look in the console to view cookies");
+};
+
+// deletes cookies
+exports.deletecookies = (req, res) => {
+  res.clearCookie("username").send("username cookie deleted");
+};
+
+// counts the number of times a user views the /viewcounts page
+exports.viewcount = (req, res, next) => {
+  res.send("You viewed this page " + req.session.views["/viewcount"] + " times")
 };
