@@ -1,22 +1,25 @@
-const express      = require("express"),
-      app          = express(),
-      routes       = require("./routes"),
-      errors       = require("./errors/errors"),
-      path         = require("path"),
-      bodyParser   = require("body-parser"),
-      cookieParser = require("cookie-parser"),
-      credentials  = require("./credentials.js"),
-      formidable   = require("formidable"),
-      livereload   = require("express-livereload"),
-      helpers      = require("express-helpers")(app),
-      morgan       = require("morgan"),
-      session      = require("express-session"),
-      parseurl     = require("parseurl"),
-      fs           = require("fs");
+const express = require("express"),
+  app = express(),
+  routes = require("./routes"),
+  errors = require("./errors/errors"),
+  path = require("path"),
+  bodyParser = require("body-parser"),
+  cookieParser = require("cookie-parser"),
+  credentials = require("./credentials.js"),
+  formidable = require("formidable"),
+  helmet = require('helmet'),
+  livereload = require("express-livereload"),
+  helpers = require("express-helpers")(app),
+  morgan = require("morgan"),
+  session = require("express-session"),
+  parseurl = require("parseurl"),
+  fs = require("fs"),
+  about = require("./lib/about/index.js");
 
+// Disables the X-Powered-By header.
 app.disable("x-powered-by");
 
-// app.set(name, value) configures expressJS app settings
+// app.set configures expressJS app settings.
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
@@ -27,55 +30,63 @@ each server request will run through these functions
 mounting static image and css files from the "public" directory
 mounting logger() to displays log information to the console
 */
-app.use(express.static(__dirname + '/public'),
-        express.static(__dirname + '/bower_components'),
-        morgan("common", {date: "web"}),
-        bodyParser.urlencoded({ extended: true }),
-        bodyParser.json(),
-        cookieParser(credentials.cookieSecret),
-        session({resave: false,
-                 saveUninitialized: true,
-                 secret: credentials.cookieSecret}),
-        function(req, res, next){
-          var views = req.session.views;
-          if(!views){
-            views = req.session.views = {};
-          }
+app.use(helmet(),
+  express.static(__dirname + '/public'),
+  express.static(__dirname + '/bower_components'),
+  morgan("common", { date: "web" }),
+  bodyParser.urlencoded({ extended: true }),
+  bodyParser.json(),
+  cookieParser(credentials.cookieSecret),
+  session({
+    resave: false,
+    saveUninitialized: true,
+    secret: credentials.cookieSecret
+  }),
+  function(req, res, next) {
+    var views = req.session.views;
+    var pathname = parseurl(req).pathname;
 
-          var pathname = parseurl(req).pathname;
-          views[pathname] = (views[pathname] || 0 ) + 1;
+    if (!views) {
+      views = req.session.views = {};
+    }
 
-          next();
-        }
+    views[pathname] = (views[pathname] || 0) + 1;
+
+    next();
+  }
 );
 
+app.use(about);
+
 /*
-app.locals{} properties specify variables that persist throughout the app
-app.locals makes data available across all app routes and templates
+app.locals{} properties specify variables that persist throughout the app.
+app.locals makes data available across all app routes and templates.
 */
 app.locals = {
   pagetitle: "node_express_app",
   app_routes: ["home", "about", "contact", "file-upload", "readfile", "writefile"],
   link_to: helpers.link_to,
-  users: [{id: 1, name: "Tom"},
-          {id: 2, name: "Dick"},
-          {id: 3, name: "Harry"}
+  users: [{ id: 1, name: "Tom" },
+    { id: 2, name: "Dick" },
+    { id: 3, name: "Harry" }
           ]
 };
 
+const LOCALS = () => app.locals;
+
 // maps text added after the last URL slash as a request parameter
 // sends the parameter to the page to be written 
-  // app.get("/user/:name?", function(req, res) {
-  //     let name = req.params.name;
-  //     res.send(name + " was here");
-  // });
+// app.get("/user/:name?", function(req, res) {
+//     let name = req.params.name;
+//     res.send(name + " was here");
+// });
 
 // app.get(path, callback [, callback ...])
-// specifies actions when a user requests a route
+// specifies HTTP GET requests.
 app.get(["/", "/index", "/home"], routes.index);
-app.get("/about", routes.about);
+// app.get("/about", routes.about);
 app.get("/contact", routes.contact);
-app.get("/thankyou", routes.thankyou);
+app.get("/thankyou", routes.thankyou, routes.index);
 app.get("/file-upload", routes.fileUpload);
 app.get("/error", errors.error);
 app.get("/cookie", routes.cookie);
@@ -85,17 +96,17 @@ app.get("/viewcount", routes.viewcount);
 app.get("/readfile", routes.readfile);
 app.get("/writefile", routes.writefile);
 
-app.post("/file-upload/:year/:month", routes.fileUploadYD);
 // app.post(path, callback [, callback ...])
-// posts new name to list of user names
+// specifies HTTP POST requests.
+app.post("/file-upload/:year/:month", routes.fileUploadYD);
 app.post("/add", (req, res) => {
-    let newItem = req.body.newItem;
-    app.locals.users.push({
-        id: app.locals.users.length + 1,
-        name: newItem
-    });
-    res.redirect("/");
+  let newItem = req.body.newItem;
+  app.locals.users.push({
+    id: app.locals.users.length + 1,
+    name: newItem
   });
+  res.redirect("/");
+});
 
 /*
 logs user submission from contact page
@@ -106,7 +117,7 @@ app.post("/process", (req, res) => {
   console.log("CSRF token : " + req.body._csrf);
   console.log("Email : " + req.body.email);
   console.log("Question : " + req.body.ques);
-  res.redirect(303, "/thankyou");    
+  res.redirect(303, "/thankyou");
 });
 
 // *** THESE MUST BE PLACED AT THE END OF THE PIPELINE ***
@@ -118,6 +129,6 @@ const server = app.listen(4000, (err, res) =>
   err => console.log("Server error"),
   res => console.log("Listening on http://localhost:4000"));
 
-livereload(app, config={
+livereload(app, config = {
   watchDir: __dirname + "/"
 });
