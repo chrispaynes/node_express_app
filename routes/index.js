@@ -1,5 +1,5 @@
 const formidable = require("formidable"),
-      fs         = require("fs");
+  fs = require("fs");
 
 /*
 gets application root route (index.html)
@@ -43,15 +43,16 @@ exports.fileUpload = (req, res) => {
     title: "File Upload",
     year: now.getFullYear(),
     month: now.getMonth()
-  })};
+  })
+};
 
 // parses file upload and redirects upon error or success
 exports.fileUploadYD = (req, res) => {
   new formidable.IncomingForm().parse(req, (err, fields, file) => {
-    if(err) {
-      return res.redirect(303, "/error")         
-    }else {
-      console.log("received file"); 
+    if (err) {
+      return res.redirect(303, "/error")
+    } else {
+      console.log("received file");
     }
 
     console.log(file);
@@ -61,7 +62,7 @@ exports.fileUploadYD = (req, res) => {
 
 // sets and displays the cookie names
 exports.cookie = (req, res) => {
-  res.cookie("username", "User Name", {expire: new Date() + 9999});
+  res.cookie("username", "User Name", { expire: new Date() + 9999 });
   res.send("Username has a value of User Name;")
 };
 
@@ -97,7 +98,7 @@ exports.writefile = (req, res, next) => {
     });
 
   fs.readFile("./public/newWriteFile.txt", (err, data) => {
-  err => console.error(err);
-  res.send("The File: " + data.toString());
+    err => console.error(err);
+    res.send("The File: " + data.toString());
   });
 };
