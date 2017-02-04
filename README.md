@@ -31,7 +31,6 @@ Install the Bower project dependencies listed in bower.json
 Install the Node project dependencies listed in package.json
 ```
     $ npm install
-    Generated bank_account app
 ```
 
 ## Usage

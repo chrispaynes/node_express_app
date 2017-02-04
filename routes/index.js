@@ -19,47 +19,6 @@ exports.index = (req, res) => {
   // res.render("views", __dirname + "/myCustomTemplateFolder");
 };
 
-exports.about = (req, res) => {
-  res.render("about", {
-    title: "About",
-    classname: "about"
-  });
-};
-
-exports.contact = (req, res) => {
-  res.render("contact", {
-    title: "Contact",
-    classname: "contact",
-    csrf: "CSRF token here"
-  });
-};
-
-exports.thankyou = (req, res) => res.render("thankyou");
-
-// renders view for /file-upload page
-exports.fileUpload = (req, res) => {
-  let now = new Date()
-  res.render("file_upload", {
-    title: "File Upload",
-    year: now.getFullYear(),
-    month: now.getMonth()
-  })
-};
-
-// parses file upload and redirects upon error or success
-exports.fileUploadYD = (req, res) => {
-  new formidable.IncomingForm().parse(req, (err, fields, file) => {
-    if (err) {
-      return res.redirect(303, "/error")
-    } else {
-      console.log("received file");
-    }
-
-    console.log(file);
-    res.redirect(303, "/thankyou")
-  })
-};
-
 // sets and displays the cookie names
 exports.cookie = (req, res) => {
   res.cookie("username", "User Name", { expire: new Date() + 9999 });

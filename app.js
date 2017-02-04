@@ -14,7 +14,14 @@ const express = require("express"),
   session = require("express-session"),
   parseurl = require("parseurl"),
   fs = require("fs"),
-  about = require("./lib/about/index.js");
+  about = require("./lib/about/index.js"),
+  contact = require("./lib/contact/index.js"),
+  thankyou = require("./lib/thankyou/index.js"),
+  upload = require("./lib/upload/index.js");
+
+app_routes = ["home", "about", "contact", "file-upload", "readfile", "writefile"];
+
+
 
 // Disables the X-Powered-By header.
 app.disable("x-powered-by");
@@ -22,6 +29,7 @@ app.disable("x-powered-by");
 // app.set configures expressJS app settings.
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+// app.set('view options', { layout: false });
 
 /*
 app.use([path,] function [, function...])
@@ -30,8 +38,8 @@ each server request will run through these functions
 mounting static image and css files from the "public" directory
 mounting logger() to displays log information to the console
 */
-app.use(helmet(),
-  express.static(__dirname + '/public'),
+app.use(helmet());
+app.use(express.static(__dirname + '/public'),
   express.static(__dirname + '/bower_components'),
   morgan("common", { date: "web" }),
   bodyParser.urlencoded({ extended: true }),
@@ -56,7 +64,6 @@ app.use(helmet(),
   }
 );
 
-app.use(about);
 
 /*
 app.locals{} properties specify variables that persist throughout the app.
@@ -72,7 +79,10 @@ app.locals = {
           ]
 };
 
-const LOCALS = () => app.locals;
+app.use(about);
+app.use(contact);
+app.use(upload);
+app.use(thankyou);
 
 // maps text added after the last URL slash as a request parameter
 // sends the parameter to the page to be written 
@@ -84,10 +94,8 @@ const LOCALS = () => app.locals;
 // app.get(path, callback [, callback ...])
 // specifies HTTP GET requests.
 app.get(["/", "/index", "/home"], routes.index);
-// app.get("/about", routes.about);
-app.get("/contact", routes.contact);
-app.get("/thankyou", routes.thankyou, routes.index);
-app.get("/file-upload", routes.fileUpload);
+// app.get("/thankyou", routes.thankyou, routes.index);
+// app.get("/file-upload", routes.fileUpload);
 app.get("/error", errors.error);
 app.get("/cookie", routes.cookie);
 app.get("/listcookies", routes.listcookies);
@@ -98,7 +106,7 @@ app.get("/writefile", routes.writefile);
 
 // app.post(path, callback [, callback ...])
 // specifies HTTP POST requests.
-app.post("/file-upload/:year/:month", routes.fileUploadYD);
+// app.post("/upload/:year/:month", fileUploadYD);
 app.post("/add", (req, res) => {
   let newItem = req.body.newItem;
   app.locals.users.push({
@@ -119,6 +127,7 @@ app.post("/process", (req, res) => {
   console.log("Question : " + req.body.ques);
   res.redirect(303, "/thankyou");
 });
+
 
 // *** THESE MUST BE PLACED AT THE END OF THE PIPELINE ***
 // sends HTTP Status response and text to browser for 404 and 500 errors
