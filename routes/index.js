@@ -1,5 +1,4 @@
-const formidable = require("formidable"),
-  fs = require("fs");
+const fs = require("fs");
 
 /*
 gets application root route (index.html)
