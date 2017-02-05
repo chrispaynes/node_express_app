@@ -1,7 +1,7 @@
 const express = require("express"),
   app = express(),
   routes = require("./routes"),
-  errors = require("./errors/errors"),
+  errors = require("./lib/errors/errors.js"),
   path = require("path"),
   bodyParser = require("body-parser"),
   cookieParser = require("cookie-parser"),
@@ -83,6 +83,7 @@ app.use(about);
 app.use(contact);
 app.use(upload);
 app.use(thankyou);
+console.log(errors.code404);
 
 // maps text added after the last URL slash as a request parameter
 // sends the parameter to the page to be written 
@@ -106,7 +107,6 @@ app.get("/writefile", routes.writefile);
 
 // app.post(path, callback [, callback ...])
 // specifies HTTP POST requests.
-// app.post("/upload/:year/:month", fileUploadYD);
 app.post("/add", (req, res) => {
   let newItem = req.body.newItem;
   app.locals.users.push({
